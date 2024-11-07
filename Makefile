@@ -26,6 +26,11 @@ run-server:
 superuser:
 	poetry run python -m gamestackr.manage createsuperuser
 
+.PHONY: docker-cleanup
+docker-cleanup:
+	docker image prune -f
+	docker builder prune -f
+
 .PHONY: up-dependencies-only
 up-dependencies-only:
 	test -f .env || touch .env

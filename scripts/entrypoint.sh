@@ -10,4 +10,4 @@ $RUN_MANAGE_PY collectstatic --no-input
 echo 'Running migrations...'
 $RUN_MANAGE_PY migrate --no-input
 
-exec poetry run daphne gamestackr.project.asgi:application -p 8000 -b 0.0.0.0
+exec poetry run daphne gamestackr.core.asgi:application -p 8000 -b 0.0.0.0
