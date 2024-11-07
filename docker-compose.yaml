@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:17.0-alpine
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: gamestackr_backend
+      POSTGRES_USER: gamestackr_backend
+      POSTGRES_PASSWORD: gamestackr_backend
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      GAMESTACKR_SETTING_DATABASES: '{"default":{"HOST":"db"}}'
+      GAMESTACKR_SETTING_LOCAL_SETTINGS_PATH: 'local/settings.prod.py'
+
+volumes:
+  postgresql-data:
+    driver: local

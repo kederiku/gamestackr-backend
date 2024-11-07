@@ -12,19 +12,24 @@ lint:
 
 .PHONY: migrate
 migrate:
-	poetry run python -m core.manage migrate
+	poetry run python -m gamestackr.manage migrate
 
 .PHONY: migrations
 migrations:
-	poetry run python -m core.manage makemigrations
+	poetry run python -m gamestackr.manage makemigrations
 
 .PHONY: run-server
 run-server:
-	poetry run python -m core.manage runserver
+	poetry run python -m gamestackr.manage runserver
 
 .PHONY: superuser
 superuser:
-	poetry run python -m core.manage createsuperuser
+	poetry run python -m gamestackr.manage createsuperuser
+
+.PHONY: up-dependencies-only
+up-dependencies-only:
+	test -f .env || touch .env
+	docker compose -f docker-compose.dev.yaml up --force-recreate db
 
 .PHONY: update
 update: install migrate install-pre-commit ;

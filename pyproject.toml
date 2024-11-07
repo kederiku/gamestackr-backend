@@ -19,6 +19,7 @@ pyyaml = "^6.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"
+colorlog = "^6.9.0"
 
 [tool.isort]
 multi_line_output = 5

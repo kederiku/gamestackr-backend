@@ -24,7 +24,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'core.project.urls'
+ROOT_URLCONF = 'gamestackr.project.urls'
 
 TEMPLATES = [
     {
@@ -42,15 +42,21 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.project.wsgi.application'
+WSGI_APPLICATION = 'gamestackr.project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/kederiku/Projects/GameStackr/db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gamestackr_backend',
+        'USER': 'gamestackr_backend',
+        'PASSWORD': 'gamestackr_backend',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'ATOMIC_REQUEST': True,
+        'CONN_MAX_AGE': 600,
     }
 }
 
