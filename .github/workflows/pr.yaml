@@ -17,17 +17,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.0.0
-      - name: Setup a local virtual environment (if no poetry.toml file)
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v3
-        name: Define a cache for the virtual environment based on the dependencies lock file
         with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
           poetry-version: 1.8.4
 
       - name: Install Dependencies
