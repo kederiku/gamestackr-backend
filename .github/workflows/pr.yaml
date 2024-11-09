@@ -16,12 +16,22 @@ jobs:
           POSTGRES_PASSWORD: gamestackr_backend
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
 
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.0.0
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+      - uses: actions/cache@v3
+        name: Define a cache for the virtual environment based on the dependencies lock file
         with:
-          poetry-version: 1.8.4
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+        #with:
+        #  poetry-version: 1.8.4
 
       - name: Install Dependencies
         run: make install && make install-pre-commit
