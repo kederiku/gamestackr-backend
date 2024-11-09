@@ -16,28 +16,20 @@ jobs:
           POSTGRES_PASSWORD: gamestackr_backend
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install Git
-        run: apt-get update && apt-get install -y git
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.0.0
         with:
           poetry-version: 1.8.4
 
-      - name: Setup a local virtual environment (if no poetry.toml file)
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - uses: actions/cache@v3
-        name: Define a cache for the virtual environment based on the dependencies lock file
+      - name: Cache pre-commit hooks
+        uses: actions/cache@v2
         with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+            path: ~/.cache/pre-commit
+            key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+
       - name: Install Dependencies
         run: make install && make install-pre-commit
 
