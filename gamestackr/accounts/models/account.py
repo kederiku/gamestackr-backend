@@ -12,7 +12,7 @@ class Account(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    object = AccountManager()  # noqa A003
+    objects = AccountManager()
 
     class Meta:
         verbose_name = 'Account'

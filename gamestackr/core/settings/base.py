@@ -13,7 +13,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # app
+    # Third party
+    'rest_framework',
+
+    # Apps
     'gamestackr.accounts.apps.AccountsConfig',
 ]
 
