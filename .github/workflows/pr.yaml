@@ -38,7 +38,6 @@ jobs:
         with:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
-
       - name: Install Dependencies
         run: make install && make install-pre-commit
 
