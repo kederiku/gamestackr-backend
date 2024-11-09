@@ -5,7 +5,7 @@ jobs:
   quality-assurance:
     name: Quality Assurance
     runs-on: ubuntu-latest
-    container: python:3.10.4-buster
+    container: python:3.11-buster
 
     services:
       db:
@@ -16,12 +16,16 @@ jobs:
           POSTGRES_PASSWORD: gamestackr_backend
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
+        uses: abatilo/actions-poetry@v2
         with:
           poetry-version: 1.8.4
+
+      - name: Disable "dubious ownership" error
+        run: git config --global --add safe.directory '*'
 
       - name: Install Dependencies
         run: make install && make install-pre-commit
